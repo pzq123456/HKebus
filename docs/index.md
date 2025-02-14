@@ -4,8 +4,8 @@ layout: home
 
 hero:
   name: "HKebus"
-  text: "HKebus"
-  tagline: My great project tagline
+  # text: "HKebus"
+  # tagline: HKebus
   actions:
     - theme: brand
       text: Markdown Examples

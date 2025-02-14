@@ -20,7 +20,8 @@
     "d3-fetch": "^3.0.1",
     "h3-js": "^4.1.0",
     "lil-gui": "^0.18.2",
-    "mapbox-gl": "^2.15.0"
+    "mapbox-gl": "^2.15.0",
+    "pinia": "^3.0.1"
   },
   "devDependencies": {
     "typescript": "latest",
