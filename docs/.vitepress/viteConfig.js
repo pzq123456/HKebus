@@ -12,7 +12,7 @@ export const viteConfig = {
           '@': path.resolve(__dirname,'..', 'src'),
         }
     },
-    
+
     // plugins: [
     //   // ...
     //   AutoImport({

@@ -7,15 +7,13 @@
 import {Deck} from '@deck.gl/core';
 import mapboxgl from 'mapbox-gl';
 import {FlowmapLayer} from '@flowmap.gl/layers';
+import {getViewStateForLocations} from '@flowmap.gl/data';
 import {GUI} from 'lil-gui';
 import {fetchData, initLilGui, UI_INITIAL} from './common';
-import {getViewStateForLocations} from '@flowmap.gl/data';
 import 'mapbox-gl/dist/mapbox-gl.css';
 
 // eslint-disable-next-line no-undef
 const MAPBOX_ACCESS_TOKEN = import.meta.env.VITE_MAPBOX_ACCESS_TOKEN;
-
-console.log('MAPBOX_ACCESS_TOKEN', MAPBOX_ACCESS_TOKEN);
 
 const MAPBOX_STYLE_DARK = 'mapbox://styles/mapbox/dark-v10';
 

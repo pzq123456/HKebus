@@ -8,8 +8,8 @@ hero:
   # tagline: HKebus
   actions:
     - theme: brand
-      text: Markdown Examples
-      link: /markdown-examples
+      text: dev
+      link: /dev
     - theme: alt
       text: API Examples
       link: /api-examples
