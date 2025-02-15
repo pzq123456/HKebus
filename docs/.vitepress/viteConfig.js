@@ -38,6 +38,11 @@ export const viteConfig = {
     // ssr: {
     //   noExternal: ['test-design-vue', 'element-plus'],
     // },
+
+    // build-fix: https://github.com/plouc/nivo/issues/2602
+    // ssr: {
+    //   noExternal: [/^@deck.gl.*$/, /^@mapbox.*$/],
+    // },
 }
 
 

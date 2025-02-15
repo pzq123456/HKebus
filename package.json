@@ -30,7 +30,8 @@
     "maplibre-gl": "^5.1.0",
     "pinia": "latest",
     "reselect": "^4.1.6",
-    "seedrandom": "^3.0.5"
+    "seedrandom": "^3.0.5",
+    "vite-plugin-commonjs": "^0.10.4"
   },
   "devDependencies": {
     "typescript": "latest",
