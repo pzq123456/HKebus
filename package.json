@@ -17,18 +17,26 @@
     "@luma.gl/constants": "^8.5.21",
     "@luma.gl/core": "^8.5.21",
     "csv-parse": "^5.6.0",
-    "d3-fetch": "^3.0.1",
     "h3-js": "^4.1.0",
-    "lil-gui": "^0.18.2",
-    "mapbox-gl": "^2.15.0",
     "maplibre-gl": "^5.1.0",
-    "pinia": "^3.0.1",
-    "vite-plugin-commonjs": "^0.10.4"
+    "pinia": "latest",
+    "vite-plugin-commonjs": "^0.10.4",
+    "d3-array": "^3.2.4",
+    "d3-color": "2 - 3",
+    "d3-geo": "^3.1.0",
+    "d3-interpolate": "2 - 3",
+    "d3-scale": "3 - 4",
+    "d3-scale-chromatic": "2 - 3",
+    "d3-time": "^3.1.0",
+    "d3-time-format": "3 - 4",
+    "kdbush": "^4.0.2",
+    "reselect": "^4.1.6",
+    "seedrandom": "^3.0.5"
   },
   "devDependencies": {
     "typescript": "latest",
     "vite": "latest",
-    "vitepress": "^1.6.3",
-    "vue": "^3.5.13"
+    "vitepress": "latest",
+    "vue": "latest"
   }
 }
