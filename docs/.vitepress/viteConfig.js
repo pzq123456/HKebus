@@ -16,20 +16,20 @@ export const viteConfig = {
     // 优化 esbuild 打包 用于支持 commonjs 模块
     // 需要安装 vite-plugin-commonjs 插件
     // https://www.npmjs.com/package/vite-plugin-commonjs
-    optimizeDeps: {
-      esbuildOptions: {
-        target: 'esnext', // 确保支持最新的 ES 特性
-      },
-    },
+    // optimizeDeps: {
+    //   esbuildOptions: {
+    //     target: 'esnext', // 确保支持最新的 ES 特性
+    //   },
+    // },
 
     // plugins: [
     //   // ...
-    //   AutoImport({
-    //     resolvers: [ElementPlusResolver()],
-    //   }),
-    //   Components({
-    //     resolvers: [ElementPlusResolver()],
-    //   }),
+    //   // AutoImport({
+    //   //   resolvers: [ElementPlusResolver()],
+    //   // }),
+    //   // Components({
+    //   //   resolvers: [ElementPlusResolver()],
+    //   // }),
     // ],
 
     // // fix build error : 
