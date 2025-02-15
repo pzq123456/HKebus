@@ -3,9 +3,11 @@
  * Copyright (c) 2018-2020 Teralytics
  * SPDX-License-Identifier: Apache-2.0
  */
+import {FlowmapLayer} from '@/packages/layers';
+import {COLOR_SCHEMES} from '@/packages/data';
 
-import {FlowmapLayer} from '@flowmap.gl/layers';
-import {COLOR_SCHEMES} from '@flowmap.gl/data';
+// import {FlowmapLayer} from '@flowmap.gl/layers';
+// import {COLOR_SCHEMES} from '@flowmap.gl/data';
 
 export const UI_INITIAL = {
   darkMode: true,

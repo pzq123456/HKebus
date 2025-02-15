@@ -16,20 +16,22 @@ import { ref, onMounted} from 'vue';
 import MapComponent from '@/components/map.vue';
 import { useDeckOverlay } from '@/composables/useDeckOverlay.js';
 
-import {FlowmapLayer} from '@flowmap.gl/layers';
-import {GUI} from 'lil-gui';
+// import {FlowmapLayer} from '@flowmap.gl/layers';
+import {FlowmapLayer} from '@/packages/layers';
+
+// import {GUI} from 'lil-gui';
 
 import { data } from '@/loaders/flow.data.js';
-import {initLilGui, UI_INITIAL} from '@/composables/ui-config.js';
+import {UI_INITIAL} from '@/composables/ui-config.js';
 
 const config = {...UI_INITIAL};
 
-const map_gui = ref(null);
+// const map_gui = ref(null);
 
-onMounted(() => {
-    const gui = new GUI({container: map_gui.value});
-    initLilGui(gui);
-});
+// onMounted(() => {
+//     const gui = new GUI({container: map_gui.value});
+//     initLilGui(gui);
+// });
 
 let deckMap = null; 
 
