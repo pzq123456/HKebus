@@ -12,7 +12,7 @@ worker.onmessage = function(e) {
     console.log('活跃行数据：', data);
   } else if (type === 'TRAJECTORY_DATA') {
     // console.log('生成的轨迹数据：', data);
-    globe_data = data;
+    // globe_data = data;
   } else if (type === 'ERROR') {
     console.error('数据加载出错：', error);
   }

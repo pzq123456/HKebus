@@ -20,7 +20,7 @@
                 ref="slider"
             />
             <div id="current-time">
-                Current Time: {{ currentTime + time_convert_reverse(currentTime).toUTCString() }}
+                Current Time: {{ time_convert_reverse(currentTime).toUTCString() }}
             </div>
             <button id="play-btn" @click="togglePlay">
                 {{ isPlaying ? 'Pause' : 'Play' }}
@@ -44,12 +44,16 @@ import { ref, onUnmounted, watch } from 'vue';
 import MapComponent from '@/components/map.vue';
 import { useDeckOverlay } from '@/composables/useDeckOverlay.js';
 import { TripsLayer } from '@deck.gl/geo-layers';
-import MyWorker from '@/workers/worker?worker';
 
 import pkg from 'lodash';
 const { throttle } = pkg;
 
+import MyWorker from '@/workers/worker.js?worker';
+import { data as myData} from '@/loaders/trips.data.js';
+
 const worker = new MyWorker();
+
+worker.postMessage({ type: 'INITIALIZE_DATA', data: myData }); // 初始化数据
 
 // 响应式状态
 const currentTime = ref(0);
@@ -83,29 +87,26 @@ async function generateTrajectoryDataForRows(timestamp) {
 }
 
 // 图层创建
-async function createTripsLayer(data, currentTimeValue) {
+function createTripsLayer(data, currentTime) {
     return new TripsLayer({
-        id: getUUID(),
+        id: 'trips',
         data,
         getPath: d => d.path,
         getTimestamps: d => d.timestamps,
         getColor: d => (d.vendor === 0 ? RED : BLUE),
-        opacity: 1,
+        opacity: 0.5,
         widthMinPixels: 3,
-        // rounded: true,
+        rounded: true,
         trailLength: 80,
-        currentTime: currentTimeValue,
-        onViewStateChange: ({ viewState }) => {
-            deckgl.setProps({ viewState });
-        },
+        currentTime,
     });
 }
 
 // 时间更新逻辑
 async function updateTime(newTime) {
     data = await generateTrajectoryDataForRows(newTime);
-
-    const newLayer = await createTripsLayer(data, currentTime.value);
+    // console.log(data);
+    const newLayer = createTripsLayer(data, currentTime.value);
 
     deckMap.setProps({
         layers: [newLayer],
@@ -118,7 +119,7 @@ function animate() {
 
     currentTime.value = (currentTime.value + step) % loopLength;
 
-    throttle(updateTime, 1000)(currentTime.value);
+    updateTime(currentTime.value);
 
     animationId = requestAnimationFrame(animate);
 }
@@ -135,8 +136,10 @@ function togglePlay() {
 // 地图初始化
 async function handleMapLoaded(map) {
     deckMap = useDeckOverlay(map);
-    // updateTime(0);
-    data = await generateTrajectoryDataForRows(0);
+
+    data = await generateTrajectoryDataForRows(currentTime.value);
+    
+
     const tripsLayer = createTripsLayer(data, currentTime.value);
 
     deckMap.setProps({
@@ -144,15 +147,13 @@ async function handleMapLoaded(map) {
     });
 }
 
-// watch(currentTime, (newTime) => {
-//     updateTime(newTime);
-// });
 
 // 输入事件处理
 function onUpdated(e) {
     const newTime = parseFloat(e.target.value);
     currentTime.value = newTime;
-    updateTime(newTime);
+    // updateTime(newTime);
+    throttle(updateTime(newTime), 1000);
 }
 
 // 清理逻辑
@@ -164,14 +165,6 @@ onUnmounted(() => {
 // 时间转换函数（需根据实际情况实现）
 function time_convert_reverse(x, min=1726617600) {
     return new Date((x + min) * 1000);
-}
-
-function getUUID() {
-    return 'xxxxxxxx-xxxx-4xxx-yxxx-xxxxxxxxxxxx'.replace(/[xy]/g, function(c) {
-        var r = Math.random() * 16 | 0,
-            v = c == 'x' ? r : (r & 0x3 | 0x8);
-        return v.toString(16);
-    });
 }
 
 </script>
@@ -195,7 +188,7 @@ function getUUID() {
   border-radius: 5px;
   box-shadow: var(--vp-shadow-1); /* 使用阴影变量 */
   backdrop-filter: blur(18px); /* 添加背景模糊效果 */
-  width: 50%;
+  width: 30%;
 }
 
 #legend {
