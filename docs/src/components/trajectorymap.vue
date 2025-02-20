@@ -9,11 +9,6 @@
 
     <div id="control-panel">
         <div id="toolbar">
-            <div id="barchart">
-                {{ currAmount }} trajectories
-                {{ currentTime }} / 84928
-                <div id="curr" :style="{ left: curr + '%' }"></div>
-            </div>
             <input
                 id="time-slider"
                 type="range"
@@ -45,7 +40,7 @@
 </template>
 
 <script setup>
-import { ref, onUnmounted, computed } from 'vue';
+import { ref, onUnmounted, watch } from 'vue';
 import MapComponent from '@/components/map.vue';
 import { useDeckOverlay } from '@/composables/useDeckOverlay.js';
 import { TripsLayer } from '@deck.gl/geo-layers';
@@ -55,9 +50,6 @@ const { throttle } = pkg;
 
 import MyWorker from '@/workers/worker.js?worker';
 import { data as myData} from '@/loaders/trips.data.js';
-
-
-
 
 const worker = new MyWorker();
 
@@ -69,15 +61,6 @@ const isPlaying = ref(false);
 let animationId = null;
 const step = 1;
 const loopLength = 84928;
-
-const currAmount = ref(0); // 当前绘制的轨迹数量
-
-const chartData = ref([]); // 图表数据
-
-// 计算当前 curr 的位置
-const curr = computed(() => {
-    return (currentTime.value / loopLength) * 100;
-});
 
 // Deck.gl 实例
 let deckMap = null;
@@ -123,9 +106,6 @@ function createTripsLayer(data, currentTime) {
 async function updateTime(newTime) {
     data = await generateTrajectoryDataForRows(newTime);
     // console.log(data);
-
-    currAmount.value = data.length;
-
     const newLayer = createTripsLayer(data, currentTime.value);
 
     deckMap.setProps({
@@ -172,7 +152,7 @@ async function handleMapLoaded(map) {
 function onUpdated(e) {
     const newTime = parseFloat(e.target.value);
     currentTime.value = newTime;
-    // updateTime(newTime);
+
     throttle(updateTime, 2000)(newTime);
 }
 
@@ -192,26 +172,9 @@ function time_convert_reverse(x, min=1726617600) {
 
 <style scoped>
 
-#barchart {
-    width: calc(100% - 25px); /* Adjust width to align with slider */
-    height: 100px;
-    background-color: var(--vp-c-bg-soft);
-    border: 1px solid var(--vp-c-border);
-    border-radius: 5px;
-    margin: 0 10px; /* Add margin to align with slider */
-}
-
-#curr {
-    width: 3px;
-    height: 100%;
-    background-color: rgba(255, 0, 0, 0.555);
-    left: 0;
-    position: relative;
-}
-
 #time-slider {
-    width: calc(100% - 20px); /* Adjust width to align with barchart */
-    margin: 10px; 
+    width: 100%;
+    margin-top: 10px;
 }
 
 #control-panel {
