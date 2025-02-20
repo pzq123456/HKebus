@@ -19,14 +19,29 @@
                 ref="slider"
             />
             <div id="current-time" class="time-container">
-                Current Time: 
+                <span class="info">
+                    Current Time: Wed, 18 Sep 2024
+                </span>
                 <span class="time">
-                    {{ time_convert_reverse(currentTime).toUTCString() }}
+                    {{ time_convert_reverse(currentTime).toUTCString().split(' ')[4] }}
                 </span>
             </div>
-            <button id="play-btn" @click="togglePlay">
+            <button class="btn" id="play-btn" @click="togglePlay">
                 {{ isPlaying ? 'Pause' : 'Play' }}
             </button>
+
+            <!-- 1x 2x 5x 10x-->
+                <button
+                    v-for="speed in [1, 2, 5, 10]"
+                    :key="speed"
+                    class="btn"
+                    :class="{ active: step === speed }"
+                    @click="step = speed"
+                >
+                    {{ speed }}x
+                </button>
+
+
         </div>
     </div>
 </template>
@@ -40,7 +55,7 @@ import { throttle } from 'lodash';
 const currentTime = ref(0);
 const isPlaying = ref(false);
 let animationId = null;
-const step = 1;
+const step = ref(1);
 const loopLength = 84928;
 
 const currAmount = ref(0); // 当前绘制的轨迹数量
@@ -63,8 +78,6 @@ const RED = [253, 128, 93];
 // 时间更新逻辑
 async function updateTime(newTime) {
     currAmount.value = await generateTrajectoryDataForRows(newTime);
-    // chartData.value.push({ time: newTime, value: currAmount.value });
-    // chartData.set(newTime, currAmount.value); 
     if(!chartData.has(newTime)){
         chartData.set(newTime, currAmount.value);
     } // 只有在时间戳不存在时才添加
@@ -75,7 +88,7 @@ async function updateTime(newTime) {
 // 动画控制
 function animate() {
     if (!isPlaying.value) return;
-    currentTime.value = (currentTime.value + step) % loopLength;
+    currentTime.value = (currentTime.value + step.value) % loopLength;
     updateTime(currentTime.value);
     animationId = requestAnimationFrame(animate);
 }
@@ -156,7 +169,9 @@ function drawLineChart() {
     svg.append("path")
         .datum(chartDataArray)
         .attr("fill", "none")
-        .attr("stroke", "steelblue")
+        .attr("stroke", "var(--vp-c-green-3)")
+        // 增加线下面积的填充
+        .attr("fill", "var(--vp-c-green-soft)")
         .attr("stroke-width", 1.5)
         .attr("d", line);
 }
@@ -175,6 +190,12 @@ onMounted(() => {
 .time{
     font-weight: bold;
     color: var(--vp-c-brand-1);
+}
+
+.info{
+    font-weight: bold;
+    color: var(--vp-c-text-1);
+    margin-left: 10px;
 }
 
 /* 新增容器布局样式 */
@@ -252,7 +273,7 @@ onMounted(() => {
     border-radius: 50%;
 }
 
-#play-btn{
+.btn{
     border: 1px solid var(--vp-c-border);
     border-radius: 5px;
     width: 100px;
@@ -260,8 +281,12 @@ onMounted(() => {
     padding: 5px;
 }
 
-/* honver */
-#play-btn:hover{
-    background-color: var(--vp-c-bg-soft);
+.btn:hover{
+    background-color: var(--vp-c-green-soft);
+}
+
+.active {
+    background-color: var(--vp-c-green-soft);
+    border: 1px solid var(--vp-c-text-1);
 }
 </style>

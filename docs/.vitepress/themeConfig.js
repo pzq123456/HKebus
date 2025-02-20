@@ -13,7 +13,7 @@ export const themeConfig = {
     
 
     footer: {
-        copyright: 'GlobalEVData © 2024 | <a href="https://thetipteam.editorx.io/website/">The TIP Research Group</a> @ <a href="https://www.polyu.edu.hk/"> HKPolyU </a>'
+        copyright: 'GlobalEVData © 2025 | <a href="https://thetipteam.editorx.io/website/">The TIP Research Group</a> @ <a href="https://www.polyu.edu.hk/"> HKPolyU </a>'
 
     },
 
