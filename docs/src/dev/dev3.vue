@@ -1,11 +1,13 @@
 <template>
     <div id="control-panel">
         <div id="toolbar">
-            <div id="barchart">
-                <div id="curr" :style="{ left: curr + '%' }"></div>
+            <div id="barchart-container">
+                <div id="barchart">
+                    <div id="curr" :style="{ left: curr + '%' }"></div>
+                </div>
             </div>
-            {{ currAmount }} trajectories
-            {{ currentTime }} / 84928
+            <!-- {{ currAmount }} trajectories
+            {{ currentTime }} / 84928 -->
             <input
                 id="time-slider"
                 type="range"
@@ -16,8 +18,11 @@
                 @input="onUpdated"
                 ref="slider"
             />
-            <div id="current-time">
-                Current Time: {{ time_convert_reverse(currentTime).toUTCString() }}
+            <div id="current-time" class="time-container">
+                Current Time: 
+                <span class="time">
+                    {{ time_convert_reverse(currentTime).toUTCString() }}
+                </span>
             </div>
             <button id="play-btn" @click="togglePlay">
                 {{ isPlaying ? 'Pause' : 'Play' }}
@@ -39,7 +44,12 @@ const step = 1;
 const loopLength = 84928;
 
 const currAmount = ref(0); // 当前绘制的轨迹数量
-const chartData = ref([]); // 图表数据
+const chartData = new Map(); // 存储绘制的数据
+
+// init chartData
+// 首先压入起点和终点的值都是0
+chartData.set(0, 0);
+chartData.set(84928, 0);
 
 // 计算当前 curr 的位置
 const curr = computed(() => {
@@ -53,7 +63,12 @@ const RED = [253, 128, 93];
 // 时间更新逻辑
 async function updateTime(newTime) {
     currAmount.value = await generateTrajectoryDataForRows(newTime);
-    chartData.value.push({ time: newTime, value: currAmount.value });
+    // chartData.value.push({ time: newTime, value: currAmount.value });
+    // chartData.set(newTime, currAmount.value); 
+    if(!chartData.has(newTime)){
+        chartData.set(newTime, currAmount.value);
+    } // 只有在时间戳不存在时才添加
+
     drawLineChart();
 }
 
@@ -89,6 +104,8 @@ onUnmounted(() => {
 // 时间转换函数（需根据实际情况实现）
 function time_convert_reverse(x, min=1726617600) {
     return new Date((x + min) * 1000);
+    // 只返回当前的 几点几分
+    // return new Date((x + min) * 1000).toLocaleTimeString();
 }
 
 // 使用异步函数改写
@@ -100,48 +117,50 @@ async function generateTrajectoryDataForRows(timestamp) {
         return timeMap.get(timestamp);
     }else{
         // const rendomNumber = Math.floor(Math.random() * 84928);
-        // 使用正弦函数包装
-        const rendomNumber = Math.floor(84928 * (Math.sin(timestamp) + 1) / 2);
+        // 使用正弦函数包装 周期非常长的这正弦函数
+        const rendomNumber = Math.floor(84928 * (1 + Math.sin(timestamp / 1000)));
         timeMap.set(timestamp, rendomNumber);
         return rendomNumber;
     }
 
 }
 
-// 绘制折线图
 function drawLineChart() {
-    // Clear the existing svg before drawing a new one
-    d3.select("#barchart").select("svg").remove();
+    const container = d3.select("#barchart");
+    container.select("svg").remove();
 
-    // Implement the logic to draw the line chart using d3.js
-    const svg = d3.select("#barchart").append("svg")
-        .attr("width", "100%")
-        .attr("height", "100%");
+    const chartDataArray = Array.from(chartData, ([time, value]) => ({ time, value }));
+    chartDataArray.sort((a, b) => a.time - b.time);
+
+    const width = container.node().offsetWidth;
+    const height = container.node().offsetHeight;
+
+    const svg = container.append("svg")
+        .attr("width", width)
+        .attr("height", height)
+        .attr("viewBox", `0 0 ${width} ${height}`)
+        .attr("preserveAspectRatio", "none");
 
     const xScale = d3.scaleTime()
-        .domain(d3.extent(chartData.value, d => d.time))
-        .range([0, svg.node().getBoundingClientRect().width]);
+        .domain(d3.extent(chartDataArray, d => d.time))
+        .range([0, width]);
 
     const yScale = d3.scaleLinear()
-        .domain([0, d3.max(chartData.value, d => d.value)])
-        .range([svg.node().getBoundingClientRect().height, 0]);
+        .domain([0, d3.max(chartDataArray, d => d.value)])
+        .range([height, 0]);
 
     const line = d3.line()
         .x(d => xScale(d.time))
         .y(d => yScale(d.value));
 
     svg.append("path")
-        .datum(chartData.value)
+        .datum(chartDataArray)
         .attr("fill", "none")
         .attr("stroke", "steelblue")
         .attr("stroke-width", 1.5)
         .attr("d", line);
 }
 
-// 监听 currentTime 的变化
-watch(currentTime, (newTime) => {
-    updateTime(newTime);
-});
 
 // 初始化图表
 onMounted(() => {
@@ -153,31 +172,50 @@ onMounted(() => {
 
 <style scoped>
 
+.time{
+    font-weight: bold;
+    color: var(--vp-c-brand-1);
+}
+
+/* 新增容器布局样式 */
+#barchart-container {
+    position: relative;
+    width: calc(100% - 20px);
+    height: 50px;
+    margin-left: 10px;
+    margin-right: 10px;
+    margin-top: 10px;
+}
+
 #barchart {
-    width: calc(100% - 25px); /* Adjust width to align with slider */
-    height: 100px;
+    position: absolute;
+    width: 100%;
+    height: 100%;
     background-color: var(--vp-c-bg-soft);
     border: 1px solid var(--vp-c-border);
     border-radius: 5px;
-    margin: 10px; /* Add margin to align with slider */
-}
-
-#barchart svg {
-    z-index: 1;
 }
 
 #curr {
-    width: 3px;
+    position: absolute;
+    width: 2px;
     height: 100%;
-    background-color: rgba(255, 0, 0, 0.555);
-    left: 0;
-    position: relative;
-    z-index: 1;
+    background-color: rgba(255, 0, 0, 0.8);
+    top: 0;
+    transform: translateX(-50%);
+    z-index: 20;
+    pointer-events: none;
+}
+
+
+
+#barchart svg {
+    z-index: 10;
 }
 
 #time-slider {
-    width: calc(100% - 20px); /* Adjust width to align with barchart */
-    margin: 10px; 
+    width: calc(100% - 10px); /* Adjust width to align with barchart */
+    margin-left: 5px;
 }
 
 #control-panel {
