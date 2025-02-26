@@ -2,7 +2,7 @@
 layout: page
 ---
 
-# Trajectory Map for HKebus
+# Trajectory Map of Bus in Hong Kong 
 
 <myApp />
 

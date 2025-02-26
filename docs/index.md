@@ -3,23 +3,35 @@
 layout: home
 
 hero:
-  name: "HKebus"
+  name: "Hong Kong eBus Study"
   # text: "HKebus"
-  # tagline: HKebus
-  actions:
-    - theme: brand
-      text: dev
-      link: /dev
-    - theme: alt
-      text: API Examples
-      link: /api-examples
+  tagline: This study focuses on optimizing Hong Kong's electric bus system using data-driven methods to enable large-scale electrification.
+  image:
+    src: "/logo.png"
+    alt: "Global EV Data"
+    style: "border: 2px solid white; border-radius: 50%; height: 70%;"
+  # actions:
+  #   - theme: brand
+  #     text: dev
+  #     link: /dev
+  #   - theme: alt
+  #     text: API Examples
+  #     link: /api-examples
 
 features:
-  - title: Feature A
-    details: Lorem ipsum dolor sit amet, consectetur adipiscing elit
-  - title: Feature B
-    details: Lorem ipsum dolor sit amet, consectetur adipiscing elit
-  - title: Feature C
-    details: Lorem ipsum dolor sit amet, consectetur adipiscing elit
+  - title: "Map"
+    details: "We visualize various spatial bus data and the analysis results through interactive maps."
+    link: /map
+    icon: 🌍
+
+  - title: "Data"
+    details: "We collect route and real-time data of Hong Kong’s buses, along with other spatial data and share the datasets upon request."
+    link: /data
+    icon: 🔄
+
+  - title: "Publications"
+    details: "We update regularly the latest research outputs using the HK eBus data as the main data sources."
+    link: /publications
+    icon: 📚
 ---
 

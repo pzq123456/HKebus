@@ -20,7 +20,7 @@
                 ref="slider"
             />
             <div id="current-time">
-                Current Time: {{ time_convert_reverse(currentTime).toUTCString() }}
+                Current Time: {{ time_convert_reverse(currentTime).toUTCString() + "+8" }}
             </div>
             <button id="play-btn" @click="togglePlay">
                 {{ isPlaying ? 'Pause' : 'Play' }}
@@ -28,12 +28,12 @@
         </div>
         <div class="legend" id="legend">
             <div class="legend-item">
-                <div class="legend-color" style="background-color: rgb(253, 128, 93);"></div>
-                <span>GMB</span>
+                <div class="legend-color" style="background-color: rgb(23, 184, 190);"></div>
+                <span>Bus</span>
             </div>
             <div class="legend-item">
-                <div class="legend-color" style="background-color: rgb(23, 184, 190);"></div>
-                <span>Non-GMB</span>
+                <div class="legend-color" style="background-color: rgb(253, 128, 93);"></div>
+                <span>Minibus</span>
             </div>
         </div>
     </div>
