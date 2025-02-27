@@ -10,15 +10,18 @@ export const themeConfig = {
         { text: 'News', link: '/News' },
         { text: 'Contact Us', link: '/contact' },
     ],
-    
 
+    logo: '/logo.png',
+    head: [
+        'link',
+        { rel: 'icon', href: '/favicon.ico' }
+    ],
+    
     footer: {
         copyright: 'HKeBus © 2025 | <a href="https://thetipteam.editorx.io/website/">The TIP Research Group</a> @ <a href="https://www.polyu.edu.hk/"> HKPolyU </a>'
-
     },
 
-    search: {
-        provider: 'local'
-    },
-
+    // search: {
+    //     provider: 'local',
+    // }
 }

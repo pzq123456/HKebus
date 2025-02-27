@@ -9,97 +9,51 @@ import {
   VPTeamPageSection
 } from 'vitepress/theme'
 
-const Investigators = [
-//   {
-//   avatar: '1.png',
-//   name: 'Dr. Chengxiang (Tony) ZHUGE',
-//   title: 'Principal Investigator',
-// }
-]
+const Investigators = [{
+  avatar: 'Tony.png',
+  name: 'Dr. Chengxiang (Tony) ZHUGE',
+  title: 'Principal Investigator',
+}]
 
 // External Collaborators
 const ExternalCollaborators = [
-  // {
-  //   avatar: '6.png',
-  //   name: 'Binru WEI',
-  //   title: 'Assistant Professor at Zhejiang University',
-  // },
-  // {
-  //   avatar: '7.png',
-  //   name: 'Zhenhan PENG',
-  //   title: 'PhD Student at KU Leuven, Belgium',
-  // }
+  {
+    avatar: 'Zhenhan PENG.png',
+    name: 'Zhenhan PENG',
+    title: 'PhD Student at KU Leuven, Belgium',
+  },
+  
+  {
+    avatar: 'Jiaxing LIU.png',
+    name: 'Jiaxing LIU',
+    title: 'Lecturer at Gannan University of Science and Technology',
+  }
+
+  // JiaxingLIU Lecturer at Gannan University of Science and Technology
+  
 ]
 
+// Shiqi WANG 
 
 
 const Reachers = [
-  // {
-  //   avatar: '2.png',
-  //   name: 'Ruichen MA',
-  //   title: 'Leading Researcher & PhD student',
-  // },
-  // {
-  //   avatar: '3.png',
-  //   name: 'Xiong YANG',
-  //   title: 'Leading Researcher & Postdoc Fellow',
-  // },
-  // {
-  //   avatar: '8.png',
-  //   name: 'Fan ZHANG',
-  //   title: 'Leading Researcher & Postdoc Fellow',
-  // },
-  // {
-  //   avatar: '4.png',
-  //   name: 'Justin Hayse Chiwing G. TANG',
-  //   title: 'Leading Researcher & PhD Student',
-  // },
-  // {
-  //   avatar: '5.png',
-  //   name: 'Enyuan CAO',
-  //   title: 'Data Analyst & PhD Student',
-  // },
-  // {
-  //   avatar: '10.png',
-  //   name: 'Xiaoqi SHI',
-  //   title: 'Data Analyst & Master Student',
-  // },
-  // {
-  //   avatar: '9.png',
-  //   name: 'Dingkang TENG',
-  //   title: 'Data Analyst & Master Student',
-  // },
-  // {
-  //   // Ding Chen，Data Analyst & Master Student
-  //   avatar: '11.png',
-  //   name: 'Ding CHEN',
-  //   title: 'Data Analyst & Master Student',
-  // },
-  // {
-  //   avatar: '12.png',
-  //   name: 'Zhiqing PAN',
-  //   title: 'Website Developer & Research Assistant',
-  //   // links : [
-  //   //   {
-  //   //     icon: 'github',
-  //   //     link: 'https://www.github.com/pzq123456',
-  //   //   }
-  //   // ]
-  // },
+  {
+    avatar: 'Zili TIAN.png',
+    name: 'Zili TIAN',
+    title: 'Leading Researcher & PhD student',
+  },
+  {
+    avatar: 'Shiqi WANG.png',
+    name: 'Shiqi WANG',
+    title: 'Leading Researcher & PhD candidate',
+  },
+
+  {
+    avatar: 'Zhiqing PAN.png',
+    name: 'Zhiqing PAN',
+    title: 'Website Developer & Research Assistant',
+  },
 ]
-
-
-// Justin
-// Leading Researcher & PhD Student
-
-// Enyuan
-// Data Analyst & PhD Student
-
-// Xiaoqi SHI
-// Data Analyst & Master Student
-
-
-
 
 </script>
 
