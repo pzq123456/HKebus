@@ -3,20 +3,13 @@
 layout: home
 
 hero:
-  name: "Hong Kong eBus Study"
+  name: "Hong Kong eBus"
   # text: "HKebus"
-  tagline: This study focuses on optimizing Hong Kong's electric bus system using data-driven methods to enable large-scale electrification.
+  tagline: Providing different stakeholders with optimal solutions to electrifying the HK bus system in a strategic way
   image:
     src: "/logo.png"
     alt: "Global EV Data"
     style: "border: 2px solid white; border-radius: 50%; height: 70%;"
-  # actions:
-  #   - theme: brand
-  #     text: dev
-  #     link: /dev
-  #   - theme: alt
-  #     text: API Examples
-  #     link: /api-examples
 
 features:
   - title: "Map"
@@ -35,3 +28,17 @@ features:
     icon: 📚
 ---
 
+
+
+<div class = "acknowledgment">
+Acknowledgment: This research is supported by the Public Policy Research (PPR) Funding Scheme that is administered by the Chief Executive’s Policy Unit (CEPU)
+</div>
+
+<style scoped>
+
+.acknowledgment {
+  font-size: 1em;
+  margin-top: 5%;
+  color: var(--vp-c-text-2);
+}
+</style>

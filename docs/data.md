@@ -1,6 +1,6 @@
 # Data
 
-The data used in this study are all open-source data from DATA.GOV.HK.
+The row data on the bus system in Hong Kong is available on DATA.GOV.HK.
 
 ## 1. Public Transport
 ### 1.1 Basic Information
