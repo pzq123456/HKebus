@@ -1,6 +1,6 @@
 # Data
 
-The row data on the bus system in Hong Kong is available on DATA.GOV.HK.
+The raw data on the bus system in Hong Kong is available on [DATA.GOV.HK](https://data.gov.hk).
 
 ## 1. Public Transport
 ### 1.1 Basic Information
