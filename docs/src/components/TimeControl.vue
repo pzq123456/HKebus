@@ -32,7 +32,7 @@
 
           <!-- 1x 2x 5x 10x-->
               <button
-                  v-for="speed in [1, 2, 5, 10]"
+                  v-for="speed in [1, 5, 10, 100, 1000]"
                   :key="speed"
                   class="btn"
                   :class="{ active: step === speed }"
