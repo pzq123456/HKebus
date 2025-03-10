@@ -8,7 +8,7 @@ The raw data on the bus system in Hong Kong is available on [DATA.GOV.HK](https:
 
 ### 1.2 Estimated Time of Arrival (ETA)
   - [Citybus and NLB](https://data.gov.hk/en-data/dataset/hk-dpo-datagovhk1-transport-bus-route-list-and-eta-spcific-bus-stop)
-  - [KMB](https://data.gov.hk/en-data/dataset/hk-td-tis_21-etakmb)
+  - [KMB and LWB](https://data.gov.hk/en-data/dataset/hk-td-tis_21-etakmb)
   - [MTR (Feeder) Bus](https://data.gov.hk/en-data/dataset/mtr-mtr_bus-mtr-bus-eta-data)
   - [GMB](https://data.gov.hk/en-data/dataset/hk-td-sm_7-real-time-arrival-data-of-gmb)
 

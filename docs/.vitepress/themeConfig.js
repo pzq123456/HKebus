@@ -14,7 +14,7 @@ export const themeConfig = {
     logo: '/logo.png',
     head: [
         'link',
-        { rel: 'icon', href: '/favicon.ico' }
+        { rel: 'icon', href: '/HKebus/favicon.ico' }
     ],
     
     footer: {
