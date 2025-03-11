@@ -43,7 +43,7 @@ const Reachers = [
     title: 'Leading Researcher & PhD student',
   },
   {
-    avatar: 'Xiong YANG.png',
+    avatar: 'Xiong Yang.png',
     name: 'Xiong YANG',
     title: 'Leading Researcher & Postdoc Fellow',
   },
