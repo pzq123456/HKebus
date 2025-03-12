@@ -22,7 +22,11 @@ export default {
                 if (context.column === 'lon' || context.column === 'lat') {
                     return Number(value);
                 } else if (context.column === 'built') {
-                    return value === 'True';
+                    if (value === 'True') {
+                        return true;
+                    } else {
+                        return false;
+                    }
                 } else {
                     return Number(value);
                 }

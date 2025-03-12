@@ -26,11 +26,26 @@ let deckMap = null;
 const tooltip = ref(null);
 
 // 颜色常量
-const BLUE = [23, 184, 190, 55];
-const GRAY = [128, 128, 128, 155];
+const GRAY = [128, 128, 128, 155]; // 灰色，用于 built 为 false 的点
+const GRAYLINE = [158, 158, 158]; // 灰色描边
 
-const BLUELINE = [23, 184, 190];
-const GRAYLINE = [158, 158, 158];
+// 颜色映射函数
+function getColorByTotal(total) {
+  // 根据 total 的值生成渐变色（从浅蓝色到深蓝色）
+  const minTotal = 0; // total 的最小值
+  const maxTotal = Math.max(...data.map(d => d.total)); // total 的最大值
+  const ratio = (total - minTotal) / (maxTotal - minTotal); // 计算比例
+
+  // 蓝色渐变：从浅蓝色 [173, 216, 230] 到深蓝色 [0, 0, 255]
+  const blue = [23, 184, 190]; // 基础蓝色
+  const color = [
+    Math.round(blue[0] + (255 - blue[0]) * ratio), // R
+    Math.round(blue[1] + (255 - blue[1]) * ratio), // G
+    Math.round(blue[2] + (255 - blue[2]) * ratio), // B
+    200, // 透明度
+  ];
+  return color;
+}
 
 // 地图初始化
 async function handleMapLoaded(map) {
@@ -67,9 +82,9 @@ function createScatterplotLayer(data) {
     id: 'scatterplot-layer',
     data,
     getPosition: d => [d.lon, d.lat],
-    getRadius: d => d.built ? (d.total / 5) * 50 : 3,
-    getFillColor: d => d.built ? BLUE : GRAY, // 根据 built 设置颜色
-    getLineColor: d => d.built ? BLUELINE : GRAYLINE, // 根据 built 设置线的颜色
+    getRadius: d => d.built ? (d.total / 5) * 50 : 3, // 根据 total 设置半径
+    getFillColor: d => d.built ? getColorByTotal(d.total) : GRAY, // 根据 total 设置颜色
+    getLineColor: d => d.built ? getColorByTotal(d.total) : GRAYLINE, // 根据 total 设置描边颜色
     getLineWidth: d => d.built ? 1 : 2, // 设置线宽
     lineWidthUnits: 'pixels',
     pickable: true, // 允许拾取
