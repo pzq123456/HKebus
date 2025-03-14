@@ -1,13 +1,11 @@
 <template>
   <div id="control-panel">
       <div id="toolbar">
-          <div id="barchart-container">
+          <div id="barchart-container" v-if="showVloume">
               <div id="barchart">
                   <div id="curr" :style="{ left: curr + '%' }"></div>
               </div>
           </div>
-          <!-- {{ currAmount }} trajectories
-          {{ currentTime }} / 84928 -->
           <input
               id="time-slider"
               type="range"
@@ -29,25 +27,26 @@
           <button class="btn" id="play-btn" @click="togglePlay">
               {{ isPlaying ? 'Pause' : 'Play' }}
           </button>
+          <button
+              v-for="speed in [1, 5, 10, 100]"
+              :key="speed"
+              class="btn"
+              :class="{ active: step === speed }"
+              @click="step = speed"
+          >
+              {{ speed }}x
+          </button>
+      </div>
 
-          <!-- 1x 2x 5x 10x-->
-              <button
-                  v-for="speed in [1, 5, 10, 100, 1000]"
-                  :key="speed"
-                  class="btn"
-                  :class="{ active: step === speed }"
-                  @click="step = speed"
-              >
-                  {{ speed }}x
-              </button>
-
-
+      <!-- slot for legend -->
+      <div class="legend" id="legend">
+          <slot></slot>
       </div>
   </div>
 </template>
 
 <script setup>
-import { ref, onMounted, onUnmounted, computed} from 'vue';
+import { ref, onMounted, onUnmounted, computed, watch } from 'vue';
 import * as d3 from 'd3';
 import { throttle } from 'lodash';
 
@@ -62,52 +61,45 @@ const props = defineProps({
     type: Function,
     default: (timestamp) => 0
   },
-  // 时间规范函数
   timeConvertFn: {
     type: Function,
     default: (currentTime) => "00:00:00"
+  },
+  showVloume: {
+    type: Boolean,
+    default: false
   }
 });
 
-const { updateFn, loopLength, timeConvertFn } = props;
+const { updateFn, loopLength, timeConvertFn, showVloume } = props;
 
-
-// 响应式状态
 const currentTime = ref(0);
 const isPlaying = ref(false);
 const step = ref(1);
+const currAmount = ref(0);
+const chartData = new Map();
 
-
-const currAmount = ref(0); // 当前绘制的轨迹数量
-const chartData = new Map(); // 存储绘制的数据
-
-
-
-// init chartData
-// 首先压入起点和终点的值都是0
 chartData.set(0, 0);
 chartData.set(84928, 0);
 
-// 计算当前 curr 的位置
 const curr = computed(() => {
   return (currentTime.value / loopLength) * 100;
 });
 
-// 颜色常量
 const BLUE = [23, 184, 190];
 const RED = [253, 128, 93];
 
-// 时间更新逻辑
 async function updateTime(newTime) {
   currAmount.value = await generateTrajectoryDataForRows(newTime);
-  if(!chartData.has(newTime)){
+  if (!chartData.has(newTime)) {
       chartData.set(newTime, currAmount.value);
-  } // 只有在时间戳不存在时才添加
+  }
 
-  drawLineChart();
+  if (showVloume) {
+      drawLineChart();
+  }
 }
 
-// 动画控制
 function animate() {
   if (!isPlaying.value) return;
   currentTime.value = (currentTime.value + step.value) % loopLength;
@@ -124,41 +116,24 @@ function togglePlay() {
   }
 }
 
-// 输入事件处理
 function onUpdated(e) {
   const newTime = parseFloat(e.target.value);
   currentTime.value = newTime;
   throttle(updateTime, 2000)(newTime);
 }
 
-// 清理逻辑
 onUnmounted(() => {
   cancelAnimationFrame(animationId);
 });
 
-
-
-// 使用异步函数改写
 async function generateTrajectoryDataForRows(timestamp) {
-  // 每个时间步的值都是唯一的
-  const timeMap = new Map(); // timestamp : 0-84928 - unique random number
-
-  if(timeMap.has(timestamp)) {
-      return timeMap.get(timestamp);
-  }else{
-      // // const rendomNumber = Math.floor(Math.random() * 84928);
-      // // 使用正弦函数包装 周期非常长的这正弦函数
-      // const rendomNumber = Math.floor(84928 * (1 + Math.sin(timestamp / 1000)));
-      // timeMap.set(timestamp, rendomNumber);
-      // return rendomNumber;
-
-      return updateFn(timestamp);
-  }
-
+  return updateFn(timestamp);
 }
 
 function drawLineChart() {
   const container = d3.select("#barchart");
+  if (container.empty()) return; // 如果容器不存在，直接返回
+
   container.select("svg").remove();
 
   const chartDataArray = Array.from(chartData, ([time, value]) => ({ time, value }));
@@ -189,16 +164,22 @@ function drawLineChart() {
       .datum(chartDataArray)
       .attr("fill", "none")
       .attr("stroke", "var(--vp-c-green-3)")
-      // 增加线下面积的填充
       .attr("fill", "var(--vp-c-green-soft)")
       .attr("stroke-width", 1.5)
       .attr("d", line);
 }
 
-
-// 初始化图表
 onMounted(() => {
-  drawLineChart();
+  if (showVloume) {
+      drawLineChart();
+  }
+});
+
+// 监听 showVloume 的变化
+watch(showVloume, (newVal) => {
+  if (newVal) {
+      drawLineChart();
+  }
 });
 </script>
 
@@ -247,8 +228,6 @@ onMounted(() => {
   pointer-events: none;
 }
 
-
-
 #barchart svg {
   z-index: 10;
 }
@@ -295,7 +274,7 @@ onMounted(() => {
 .btn{
   border: 1px solid var(--vp-c-border);
   border-radius: 5px;
-  width: 100px;
+  width: 70px;
   margin: 5px;
   padding: 5px;
 }
@@ -308,4 +287,16 @@ onMounted(() => {
   background-color: var(--vp-c-green-soft);
   border: 1px solid var(--vp-c-text-1);
 }
+
+.legend{
+  margin-top: 10px;
+  padding: 10px;
+  border: 1px solid var(--vp-c-border);
+  border-radius: 5px;
+  background-color: var(--vp-c-bg-soft);
+  font-family: Arial, sans-serif;
+  font-size: 14px;
+  z-index: 1;
+}
+
 </style>

@@ -9,5 +9,10 @@ export const menu = {
       "info": "-",
       "url": "map/B"
     },
+    "C": {
+      "title": "EV Charging Stations in Hong Kong",
+      "info": "-",
+      "url": "map/C"
+    },
   }
   

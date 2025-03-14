@@ -3,7 +3,18 @@
     :updateFn="updateTime"
     :loopLength="84928"
     :timeConvertFn="updateTimeString"
-  />
+    >
+    <div class="legend" id="legend">
+          <div class="legend-item">
+              <div class="legend-color" style="background-color: rgb(23, 184, 190);"></div>
+              <span>Bus</span>
+          </div>
+          <div class="legend-item">
+              <div class="legend-color" style="background-color: rgb(253, 128, 93);"></div>
+              <span>Minibus</span>
+          </div>
+      </div>
+  </ControlPanel>
   <MapComponent
       :center="[114.173355, 22.320048]"
       :zoom="11"
@@ -128,14 +139,12 @@ border: 1px solid var(--vp-c-border); /* 使用边框变量 */
 border-radius: 5px;
 box-shadow: var(--vp-shadow-1); /* 使用阴影变量 */
 backdrop-filter: blur(18px); /* 添加背景模糊效果 */
-width: 35%;
+width: 20%;
 }
 
 #legend {
   background-color: var(---vp-c-bg-soft);
   padding: 10px;
-  border: 1px solid var(--vp-c-border);
-  border-radius: 5px;
   font-family: Arial, sans-serif;
   font-size: 14px;
   z-index: 1;
