@@ -34,6 +34,24 @@ features:
 Acknowledgment: This research is supported by the Public Policy Research (PPR) Funding Scheme that is administered by the Chief Executive’s Policy Unit (CEPU)
 </div>
 
+<script setup>
+// 编写脚本主动 下载 favicon 图标
+// const url = '/favicon.ico';
+
+// 在页面渲染出来之后，创建一个 link 元素
+import { onMounted } from 'vue';
+
+onMounted(() => {
+  const link = document.createElement('link');
+  link.rel = 'icon';
+  link.href = '/favicon.ico';
+  document.head.appendChild(link);
+  console.log('favicon added');
+});
+
+
+</script>
+
 <style scoped>
 
 .acknowledgment {

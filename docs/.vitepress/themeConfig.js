@@ -12,10 +12,8 @@ export const themeConfig = {
     ],
 
     logo: '/logo.png',
-    head: [
-        'link',
-        { rel: 'icon', href: './HKebus/favicon.ico' }
-    ],
+    
+    head: [['link', { rel: 'icon', href: './HKebus/favicon.ico' }]],
     
     footer: {
         copyright: 'HKeBus © 2025 | <a href="https://thetipteam.editorx.io/website/">The TIP Research Group</a> @ <a href="https://www.polyu.edu.hk/"> HKPolyU </a>'
