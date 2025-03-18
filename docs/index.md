@@ -41,14 +41,17 @@ Acknowledgment: This research is supported by the Public Policy Research (PPR) F
 // 在页面渲染出来之后，创建一个 link 元素
 import { onMounted } from 'vue';
 
+import { withBase, useData } from 'vitepress'
+
 onMounted(() => {
+  // 基于静态资源获取 favicon 并添加到页面
+  const URL = withBase('/favicon.ico');
   const link = document.createElement('link');
   link.rel = 'icon';
-  link.href = '/favicon.ico';
-  document.head.appendChild(link);
-  console.log('favicon added');
-});
 
+  link.href = URL;
+  document.head.appendChild(link);
+});
 
 </script>
 
