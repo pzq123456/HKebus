@@ -2,13 +2,18 @@ export const themeConfig = {
     // https://vitepress.dev/reference/default-theme-config
     nav: [
         { text: 'Home', link: '/' },
-        // { text: 'About', link: '/about' },
         { text: 'Map', link: '/map' },
         { text: 'Data', link: '/data' },
         { text: 'Team', link: '/team' },
         { text: 'Publications', link: '/publications' },
         { text: 'News', link: '/News' },
-        { text: 'Contact Us', link: '/contact' },
+        {
+            text: 'About',
+            items: [
+              { text: 'Contact Us', link: '/contact' },
+              { text: 'Acknowledgement', link: '/acknowledgment' },
+            ]
+        }
     ],
 
     logo: '/logo.png',

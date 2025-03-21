@@ -11,9 +11,9 @@ import {COLOR_SCHEMES} from '@/packages/data';
 
 export const UI_INITIAL = {
   darkMode: true,
-  colorScheme: 'Teal',
-  highlightColor: '#ff9b29',
-  opacity: 1.0,
+  colorScheme: 'BuGn',
+  highlightColor: 'green',
+  opacity: 0.6,
   fadeEnabled: FlowmapLayer.defaultProps.fadeEnabled,
   fadeOpacityEnabled: FlowmapLayer.defaultProps.fadeOpacityEnabled,
   fadeAmount: FlowmapLayer.defaultProps.fadeAmount,

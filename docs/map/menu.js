@@ -1,6 +1,6 @@
 export const menu = {
     "A": {
-      "title": "Flow Map of Bus in Hong Kong",
+      "title": "Bus Trip Origins ano Destinations in Hong Kong",
       "info": "-",
       "url": "map/A"
     },
@@ -10,7 +10,7 @@ export const menu = {
       "url": "map/B"
     },
     "C": {
-      "title": "EV Charging Stations in Hong Kong",
+      "title": "Map of eBus Charging Stations in Hong Kong",
       "info": "-",
       "url": "map/C"
     },

@@ -35,6 +35,10 @@ const props = defineProps({
   height: {
       type: String,
       default: '80vh' // 默认高度
+  },
+  onDarkModeChange: {
+      type: Function,
+      default: () => {} // 默认空函数
   }
 });
 
@@ -68,6 +72,8 @@ onMounted(() => {
   watch(mapStyle, (newStyle) => {
       if (map) {
           map.setStyle(newStyle); // 动态更新地图样式
+          // 调用 onDarkModeChange 函数，并传递当前是否为暗色模式
+          props.onDarkModeChange(isDark.value);
       }
   });
 });
