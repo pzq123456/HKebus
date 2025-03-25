@@ -1,6 +1,6 @@
 export const menu = {
     "A": {
-      "title": "Bus Trip Origins ano Destinations in Hong Kong",
+      "title": "Bus Trip Origins and Destinations in Hong Kong",
       "info": "-",
       "url": "map/A"
     },

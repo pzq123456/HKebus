@@ -28,12 +28,6 @@ features:
     icon: 📚
 ---
 
-
-
-<div class = "acknowledgment">
-Acknowledgment: This research is supported by the Public Policy Research (PPR) Funding Scheme that is administered by the Chief Executive’s Policy Unit (CEPU)
-</div>
-
 <script setup>
 // 编写脚本主动 下载 favicon 图标
 // const url = '/favicon.ico';
@@ -54,12 +48,3 @@ onMounted(() => {
 });
 
 </script>
-
-<style scoped>
-
-.acknowledgment {
-  font-size: 1em;
-  margin-top: 5%;
-  color: var(--vp-c-text-2);
-}
-</style>
