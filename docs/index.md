@@ -9,7 +9,7 @@ hero:
   image:
     src: "/logo.png"
     alt: "Global EV Data"
-    style: "border-radius: 50%; height: 70%;"
+    style: "border-radius: 50%; height: 95%;"
 
 features:
   - title: "Map"

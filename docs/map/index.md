@@ -8,6 +8,6 @@ Interactive Map : [Click Here](./A.md)
 
 Interactive Map : [Click Here](./B.md)
 
-## [Map of EV Charging Station in Hong Kong](./C.md)
+## [Map of eBus Charging Stations in Hong Kong](./C.md)
 
 Interactive Map : [Click Here](./C.md)
