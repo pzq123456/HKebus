@@ -3,6 +3,7 @@
     :updateFn="updateTime"
     :loopLength="84928"
     :timeConvertFn="updateTimeString"
+    :showVloume="true"
     >
     <div class="legend" id="legend">
           <div class="legend-item">
